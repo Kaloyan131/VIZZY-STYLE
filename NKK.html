@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIZZY STYLE</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background-color: #222;
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        .email-form {
+            margin-top: 2rem;
+        }
+        .email-form input[type="email"] {
+            padding: 0.5rem;
+            width: 300px;
+            max-width: 100%;
+            margin-right: 0.5rem;
+        }
+        .email-form button {
+            padding: 0.5rem 1rem;
+            background-color: #222;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .email-form button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to VIZZY STYLE</h1>
+        <p>Your go-to brand for stylish and trendy clothing!</p>
+    </header>
+    <main>
+        <p>Stay updated with our latest collections and exclusive offers. Enter your email below:</p>
+        <form class="email-form" id="emailForm">
+            <input type="email" id="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+        <p id="responseMessage" style="margin-top: 1rem;"></p>
+    </main>
+
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const responseMessage = document.getElementById('responseMessage');
+
+            // Simulate sending the email to the server
+            fetch('https://example.com/api/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(response => {
+                if (response.ok) {
+                    responseMessage.textContent = 'Thank you for subscribing! Check your email for updates.';
+                    responseMessage.style.color = 'green';
+                } else {
+                    throw new Error('Failed to send email');
+                }
+            })
+            .catch(error => {
+                responseMessage.textContent = 'Something went wrong. Please try again later.';
+                responseMessage.style.color = 'red';
+            });
+
+            // Clear the email input field
+            document.getElementById('email').value = '';
+        });
+    </script>
+</body>
+</html>
